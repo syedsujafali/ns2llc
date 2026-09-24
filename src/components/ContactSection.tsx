@@ -78,7 +78,7 @@ export default function ContactSection() {
               Contact Us
             </h2>
             <p data-ct-r className="mt-3 max-w-[440px] text-[15px] leading-relaxed text-white/85">
-              Need immediate roadside assistance or mobile tire service? We're ready to help.
+              Need immediate roadside assistance or mobile tire service? We&apos;re ready to help.
             </p>
 
             <ul className="mt-6 space-y-3 sm:mt-10">
@@ -104,7 +104,7 @@ export default function ContactSection() {
                 </span>
                 <h3 className="display mt-5 text-[24px] text-ink sm:mt-6 sm:text-[28px]">Your request is ready</h3>
                 <p className="mt-3 max-w-[400px] text-[14px] leading-relaxed text-muted sm:text-[15px]">
-                  We've opened your email app with the details filled in. For immediate roadside help, call us now at{" "}
+                  We&apos;ve opened your email app with the details filled in. For immediate roadside help, call us now at{" "}
                   <a href={PHONE_HREF} className="font-bold text-teal-700">
                     {PHONE}
                   </a>

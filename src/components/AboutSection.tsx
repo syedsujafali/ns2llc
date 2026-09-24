@@ -114,7 +114,7 @@ export default function AboutSection() {
           <div className="mt-6 max-w-[560px] space-y-4 text-[15px] leading-relaxed text-muted sm:mt-8 sm:text-[16px]">
             <p data-ab-r>
               At <span className="font-bold text-ink">NS2LLC ROADSIDE ASSISTANCE</span>, we understand that vehicle
-              problems never happen at a convenient time. That's why we built a mobile service designed around
+              problems never happen at a convenient time. That&apos;s why we built a mobile service designed around
               speed, reliability, and convenience.
             </p>
             <p data-ab-r>

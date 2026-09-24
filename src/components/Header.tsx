@@ -101,13 +101,12 @@ export default function Header() {
           }`}
       >
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-5 md:px-8 lg:px-12">
-          {/* Logo — Desktop and Mobile */}
+          {/* Logo — Single responsive logo across all screen sizes */}
           <div data-hdr className="flex items-center">
             <Logo
-              size="md"
-              className="hidden md:inline-flex"
+              size="header"
+              className={scrolled ? "scale-90 origin-left transition-transform duration-300" : "transition-transform duration-300"}
             />
-
           </div>
 
           {/* Desktop nav pill */}

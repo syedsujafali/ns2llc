@@ -3,23 +3,24 @@
 import { scrollToTarget } from "@/lib/scroll";
 
 export default function Logo({
-  size = "md",
+  size = "header",
   className = "",
   onClick,
 }: {
-  size?: "xs" | "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg" | "header";
   className?: string;
   stacked?: boolean;
   onClick?: () => void;
 }) {
-  const heights = {
-    xs: 46,
-    sm: 86,
-    md: 118,
-    lg: 160,
+  const sizeClasses: Record<string, string> = {
+    header: "h-11 sm:h-13 md:h-20 lg:h-24",
+    xs: "h-10 sm:h-11",
+    sm: "h-14 md:h-16",
+    md: "h-18 md:h-24",
+    lg: "h-24 md:h-32",
   };
 
-  const h = heights[size];
+  const imgClass = sizeClasses[size] || sizeClasses.header;
 
   return (
     <a
@@ -35,9 +36,7 @@ export default function Logo({
       <img
         src="/logo.png"
         alt="NS2LLC Roadside Assistance logo"
-        height={h}
-        style={{ height: `${h}px`, width: "auto", display: "block" }}
-        className="object-contain"
+        className={`${imgClass} w-auto object-contain transition-all duration-300`}
       />
     </a>
   );

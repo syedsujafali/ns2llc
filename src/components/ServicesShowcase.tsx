@@ -99,7 +99,7 @@ export default function ServicesShowcase() {
         <div data-sv-head className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="eyebrow">Our Services</p>
-            <h2 className="display mt-5 text-[clamp(2.6rem,6vw,5.4rem)] text-ink">
+            <h2 className="display mt-5 text-[clamp(2.4rem,6vw,5.4rem)] text-ink">
               Comprehensive
               <br />
               <span className="text-teal-700">Mobile Services</span>

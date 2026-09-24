@@ -7,8 +7,6 @@ import { EMAIL, HOURS, NAV_LINKS, PHONE, PHONE_HREF } from "@/lib/content";
 import Logo from "./Logo";
 import { ArrowUpIcon, ClockIcon, MailIcon, PhoneIcon } from "./icons";
 
-const ROAD = "M-40 180 C 200 120, 360 300, 640 220 S 1040 40, 1240 140 S 1400 240, 1500 200";
-
 export default function Footer() {
   const root = useRef<HTMLElement>(null);
   const [showTop, setShowTop] = useState(false);
@@ -22,27 +20,8 @@ export default function Footer() {
 
   useEffect(() => {
     const el = root.current;
-    if (!el) return;
-    const path = el.querySelector<SVGPathElement>("[data-ft-road]");
-    if (path) {
-      const len = path.getTotalLength();
-      path.style.strokeDasharray = `${len}`;
-      path.style.strokeDashoffset = prefersReducedMotion() ? "0" : `${len}`;
-    }
-    if (prefersReducedMotion()) return;
+    if (!el || prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
-      if (path) {
-        gsap.to(path, {
-          strokeDashoffset: 0,
-          ease: "none",
-          scrollTrigger: { trigger: el, start: "top 90%", end: "bottom bottom", scrub: 0.6 },
-        });
-      }
-      gsap.fromTo(
-        "[data-ft-word]",
-        { yPercent: 100 },
-        { yPercent: 0, stagger: 0.12, duration: 1.2, ease: "power4.out", scrollTrigger: { trigger: el, start: "top 80%", once: true } },
-      );
       gsap.fromTo(
         "[data-ft-r]",
         { opacity: 0, y: 24 },
@@ -57,24 +36,26 @@ export default function Footer() {
   return (
     <>
       <footer ref={root} className="relative overflow-hidden bg-sage-100">
-        {/* Soft separation gradient */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-ivory to-transparent" />
 
-        <div className="relative mx-auto max-w-[1440px] px-5 pb-10 pt-28 sm:px-8 lg:px-12 lg:pt-36">
-          <div data-ft-r className="flex items-center justify-between">
-            <Logo size="lg" />
-            <a href={PHONE_HREF} className="hidden items-center gap-3 rounded-full bg-white px-5 py-3 text-[14px] font-bold text-ink shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-lift sm:inline-flex">
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-teal-700 text-white">
-                <PhoneIcon className="h-4 w-4" />
+        <div className="relative mx-auto max-w-[1440px] px-4 pb-8 pt-16 sm:px-8 sm:pb-10 sm:pt-20 lg:px-12 lg:pt-28">
+          {/* Logo + phone */}
+          <div data-ft-r className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <Logo size="md" />
+            <a
+              href={PHONE_HREF}
+              className="inline-flex w-fit items-center gap-3 rounded-full bg-white px-4 py-2.5 text-[13px] font-bold text-ink shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-lift sm:px-5 sm:py-3 sm:text-[14px]"
+            >
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-teal-700 text-white sm:h-8 sm:w-8">
+                <PhoneIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </span>
               {PHONE}
             </a>
           </div>
 
-
-          {/* Navigation + contact */}
-          <div className="mt-10 grid gap-10 border-t border-sage-200 pt-10 lg:grid-cols-[1fr_auto] lg:items-start">
-            <nav data-ft-r aria-label="Footer" className="flex flex-wrap gap-x-8 gap-y-3">
+          {/* Navigation + contact info */}
+          <div className="mt-8 grid gap-8 border-t border-sage-200 pt-8 sm:mt-10 sm:gap-10 sm:pt-10 lg:grid-cols-[1fr_auto] lg:items-start">
+            <nav data-ft-r aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-3 sm:gap-x-8">
               {NAV_LINKS.map((l) => (
                 <a
                   key={l.href}
@@ -83,7 +64,7 @@ export default function Footer() {
                     e.preventDefault();
                     go(l.href);
                   }}
-                  className="group relative text-[15px] font-bold uppercase tracking-[0.18em] text-teal-700 transition-colors hover:text-ink"
+                  className="group relative text-[13px] font-bold uppercase tracking-[0.18em] text-teal-700 transition-colors hover:text-ink sm:text-[15px]"
                 >
                   {l.label}
                   <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-coral transition-all duration-500 group-hover:w-full" />
@@ -91,27 +72,27 @@ export default function Footer() {
               ))}
             </nav>
 
-            <ul data-ft-r className="grid gap-3 rounded-3xl border border-sage-200 bg-white/70 p-5 text-[14.5px] font-semibold text-ink backdrop-blur sm:grid-cols-3 lg:min-w-[560px]">
+            <ul data-ft-r className="grid gap-3 rounded-2xl border border-sage-200 bg-white/70 p-4 text-[13px] font-semibold text-ink backdrop-blur sm:rounded-3xl sm:p-5 sm:text-[14.5px] lg:min-w-[520px] lg:grid-cols-3">
               <li>
-                <a href={PHONE_HREF} className="flex items-center gap-3 hover:text-teal-700">
-                  <PhoneIcon className="h-4.5 w-4.5 text-teal-700" />
-                  {PHONE}
+                <a href={PHONE_HREF} className="flex items-center gap-2.5 hover:text-teal-700 sm:gap-3">
+                  <PhoneIcon className="h-4 w-4 shrink-0 text-teal-700 sm:h-4.5 sm:w-4.5" />
+                  <span className="truncate">{PHONE}</span>
                 </a>
               </li>
               <li>
-                <a href={`mailto:${EMAIL}`} className="flex items-center gap-3 hover:text-teal-700">
-                  <MailIcon className="h-4.5 w-4.5 text-teal-700" />
-                  {EMAIL}
+                <a href={`mailto:${EMAIL}`} className="flex items-center gap-2.5 hover:text-teal-700 sm:gap-3">
+                  <MailIcon className="h-4 w-4 shrink-0 text-teal-700 sm:h-4.5 sm:w-4.5" />
+                  <span className="truncate">{EMAIL}</span>
                 </a>
               </li>
-              <li className="flex items-start gap-3 text-muted">
-                <ClockIcon className="mt-0.5 h-4.5 w-4.5 shrink-0 text-teal-700" />
-                <span className="text-[13.5px]">{HOURS}</span>
+              <li className="flex items-start gap-2.5 text-muted sm:gap-3">
+                <ClockIcon className="mt-0.5 h-4 w-4 shrink-0 text-teal-700 sm:h-4.5 sm:w-4.5" />
+                <span className="text-[12.5px] sm:text-[13.5px]">{HOURS}</span>
               </li>
             </ul>
           </div>
 
-          <p data-ft-r className="mt-10 text-[13px] leading-relaxed text-muted">
+          <p data-ft-r className="mt-8 text-[12px] leading-relaxed text-muted sm:mt-10 sm:text-[13px]">
             ® 2026 NS2LLC. All rights reserved. Licensed and insured roadside assistance provider.
           </p>
         </div>
@@ -122,10 +103,11 @@ export default function Footer() {
         type="button"
         onClick={() => scrollToTarget(0, 0)}
         aria-label="Scroll to top"
-        className={`group fixed bottom-6 right-5 z-[80] grid h-12 w-12 place-items-center rounded-full bg-white text-teal-700 shadow-lift ring-1 ring-sage-200 transition-all duration-700 ease-[cubic-bezier(.22,1,.36,1)] hover:bg-teal-700 hover:text-white sm:bottom-8 sm:right-8 ${showTop ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
-          }`}
+        className={`group fixed bottom-5 right-4 z-[80] grid h-11 w-11 place-items-center rounded-full bg-white text-teal-700 shadow-lift ring-1 ring-sage-200 transition-all duration-700 ease-[cubic-bezier(.22,1,.36,1)] hover:bg-teal-700 hover:text-white sm:bottom-8 sm:right-8 sm:h-12 sm:w-12 ${
+          showTop ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
+        }`}
       >
-        <ArrowUpIcon className="h-5 w-5 transition-transform duration-500 group-hover:-translate-y-0.5" />
+        <ArrowUpIcon className="h-4 w-4 transition-transform duration-500 group-hover:-translate-y-0.5 sm:h-5 sm:w-5" />
       </button>
     </>
   );

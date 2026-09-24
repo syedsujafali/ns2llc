@@ -94,22 +94,29 @@ export default function Header() {
 
   return (
     <>
+      {/* ─── Header bar ─── */}
       <header
         ref={headerRef}
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ease-[cubic-bezier(.22,1,.36,1)] ${scrolled ? "py-0.5 header-scrolled" : "py-1 lg:py-2 header-default"}`}
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+          scrolled ? "header-scrolled py-1" : "header-default py-2 lg:py-3"
+        }`}
       >
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-12">
+          {/* Logo — xs on mobile, sm/md on desktop */}
           <div data-hdr>
-            <Logo size={scrolled ? "sm" : "md"} />
+            <span className="lg:hidden">
+              <Logo size="xs" />
+            </span>
+            <span className="hidden lg:inline">
+              <Logo size={scrolled ? "sm" : "md"} />
+            </span>
           </div>
 
-          {/* Floating pill nav */}
+          {/* Desktop nav pill */}
           <nav
             data-hdr
             aria-label="Primary"
-            className={`hidden items-center gap-1 rounded-full p-1.5 transition-all duration-700 ease-[cubic-bezier(.22,1,.36,1)] lg:flex ${
-              scrolled ? "glass shadow-soft" : "border border-white/50 bg-white/40 backdrop-blur-md"
-            }`}
+            className="hidden items-center gap-1 rounded-full border border-white/50 bg-white/40 p-1.5 backdrop-blur-md lg:flex"
           >
             {NAV_LINKS.map((l) => {
               const isActive = active === l.href;
@@ -117,99 +124,83 @@ export default function Header() {
                 <a
                   key={l.href}
                   href={l.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    go(l.href);
-                  }}
-                  className={`group relative rounded-full px-5 py-2.5 text-[13.5px] font-semibold tracking-wide transition-colors duration-300 ${
+                  onClick={(e) => { e.preventDefault(); go(l.href); }}
+                  className={`group relative rounded-full px-4 py-2 text-[13px] font-semibold tracking-wide transition-colors duration-300 ${
                     isActive ? "text-white" : "text-ink hover:text-teal-700"
                   }`}
                 >
-                  <span
-                    className={`absolute inset-0 rounded-full bg-teal-700 transition-all duration-500 ease-[cubic-bezier(.22,1,.36,1)] ${
-                      isActive ? "scale-100 opacity-100" : "scale-75 opacity-0"
-                    }`}
-                  />
+                  <span className={`absolute inset-0 rounded-full bg-teal-700 transition-all duration-500 ${isActive ? "scale-100 opacity-100" : "scale-75 opacity-0"}`} />
                   <span className="relative">{l.label}</span>
-                  {!isActive && (
-                    <span className="absolute bottom-1.5 left-1/2 h-[2px] w-0 -translate-x-1/2 rounded-full bg-coral transition-all duration-400 group-hover:w-5" />
-                  )}
                 </a>
               );
             })}
           </nav>
 
+          {/* Desktop CTA */}
           <div data-hdr className="hidden lg:block">
             <Button href={PHONE_HREF} size={scrolled ? "sm" : "md"} icon={<PhoneIcon className="h-4 w-4" />}>
               {PHONE}
             </Button>
           </div>
 
-          {/* Mobile controls */}
+          {/* Mobile: phone + hamburger */}
           <div className="flex items-center gap-2 lg:hidden">
             <a
               href={PHONE_HREF}
               aria-label={`Call ${PHONE}`}
-              className="grid h-11 w-11 place-items-center rounded-full bg-teal-700 text-white shadow-teal"
+              className="grid h-10 w-10 place-items-center rounded-full bg-teal-700 text-white shadow-teal"
             >
-              <PhoneIcon className="h-[18px] w-[18px]" />
+              <PhoneIcon className="h-4 w-4" />
             </a>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
-              aria-label={open ? "Close menu" : "Open menu"}
-              className="glass relative z-[70] grid h-11 w-11 place-items-center rounded-full shadow-soft"
+              aria-label="Open menu"
+              className="glass grid h-10 w-10 place-items-center rounded-full shadow-soft"
             >
               <span className="relative block h-3.5 w-5">
-                <span
-                  className={`absolute left-0 top-0 h-[2px] w-full rounded bg-ink transition-all duration-500 ${open ? "top-1.5 rotate-45" : ""}`}
-                />
-                <span
-                  className={`absolute left-0 top-1.5 h-[2px] w-full rounded bg-coral transition-all duration-300 ${open ? "opacity-0" : ""}`}
-                />
-                <span
-                  className={`absolute left-0 top-3 h-[2px] w-full rounded bg-ink transition-all duration-500 ${open ? "top-1.5 -rotate-45" : ""}`}
-                />
+                <span className="absolute left-0 top-0 h-[2px] w-full rounded bg-ink transition-all duration-500" />
+                <span className="absolute left-0 top-1.5 h-[2px] w-full rounded bg-coral transition-all duration-300" />
+                <span className="absolute left-0 top-3 h-[2px] w-full rounded bg-ink transition-all duration-500" />
               </span>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile overlay */}
+      {/* ─── Mobile overlay ─── */}
       <div
         ref={overlayRef}
         aria-hidden={!open}
-        className="fixed inset-0 z-[60] flex flex-col bg-ivory px-6 pb-8 pt-28 lg:hidden"
+        className="fixed inset-0 z-[60] flex flex-col bg-ivory px-5 pb-8 pt-24 lg:hidden"
         style={{ clipPath: "circle(0% at calc(100% - 46px) 46px)", pointerEvents: "none" }}
       >
         <svg aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 w-full opacity-60" viewBox="0 0 400 400" fill="none" preserveAspectRatio="none">
           <path d="M-20 380 C 80 300, 180 420, 280 300 S 400 160, 440 200" stroke="#6d9d96" strokeWidth="1.5" />
           <path d="M-20 420 C 100 340, 200 460, 300 340 S 420 200, 460 240" stroke="#d97862" strokeWidth="1" opacity="0.6" />
         </svg>
+
         <nav className="relative flex flex-col" aria-label="Mobile">
           {NAV_LINKS.map((l, i) => (
             <a
               key={l.href}
               data-m-item
               href={l.href}
-              onClick={(e) => {
-                e.preventDefault();
-                go(l.href);
-              }}
-              className={`group flex items-center justify-between border-b border-sage-200 py-5 text-[34px] font-extrabold uppercase tracking-tight ${
+              onClick={(e) => { e.preventDefault(); go(l.href); }}
+              className={`group flex items-center justify-between border-b border-sage-200 py-4 text-[28px] font-extrabold uppercase tracking-tight sm:py-5 sm:text-[34px] ${
                 active === l.href ? "text-teal-700" : "text-ink"
               }`}
             >
-              <span className="flex items-baseline gap-4">
-                <span className="text-[12px] font-bold tracking-[0.3em] text-coral">0{i + 1}</span>
+              <span className="flex items-baseline gap-3">
+                <span className="text-[11px] font-bold tracking-[0.3em] text-coral">0{i + 1}</span>
                 {l.label}
               </span>
-              <ArrowRightIcon className="h-6 w-6 text-teal-400 transition-transform group-hover:translate-x-1" />
+              <ArrowRightIcon className="h-5 w-5 text-teal-400 transition-transform group-hover:translate-x-1" />
             </a>
           ))}
         </nav>
+
         <div data-m-item className="relative mt-auto space-y-4">
           <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-muted">24/7 Emergency Line</p>
           <Button href={PHONE_HREF} size="lg" className="w-full" icon={<PhoneIcon className="h-4.5 w-4.5" />}>
@@ -218,6 +209,21 @@ export default function Header() {
           <p className="text-[13px] text-muted">Serving DC, Maryland &amp; Northern Virginia.</p>
         </div>
       </div>
+
+      {/* ─── Close button (fixed, above overlay) ─── */}
+      {open && (
+        <button
+          type="button"
+          onClick={() => setOpen(false)}
+          aria-label="Close menu"
+          className="fixed right-4 top-4 z-[70] grid h-11 w-11 place-items-center rounded-full bg-teal-700 text-white shadow-teal transition-colors duration-300 hover:bg-coral lg:hidden"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      )}
     </>
   );
 }

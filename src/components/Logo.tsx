@@ -6,11 +6,12 @@ export default function Logo({
   size = "md",
   className = "",
 }: {
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
   className?: string;
   stacked?: boolean;
 }) {
   const heights = {
+    xs: 52,
     sm: 80,
     md: 110,
     lg: 160,

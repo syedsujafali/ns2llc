@@ -32,5 +32,5 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  return <>{children}</>;
+  return <div style={{ overflowX: "hidden", width: "100%" }}>{children}</div>;
 }

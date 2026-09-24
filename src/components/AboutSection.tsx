@@ -19,9 +19,9 @@ export default function AboutSection() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         "[data-ab-img-wrap]",
-        { clipPath: "inset(12% 12% 12% 12% round 48px)" },
+        { clipPath: "inset(12% 12% 12% 12% round 32px)" },
         {
-          clipPath: "inset(0% 0% 0% 0% round 48px)",
+          clipPath: "inset(0% 0% 0% 0% round 32px)",
           duration: 1.6,
           ease: "power3.inOut",
           scrollTrigger: { trigger: "[data-ab-img-wrap]", start: "top 80%", once: true },
@@ -62,7 +62,7 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section id="about" ref={root} className="relative overflow-hidden bg-sage-50 py-24 lg:py-36">
+    <section id="about" ref={root} className="relative overflow-hidden bg-sage-50 py-20 lg:py-36">
       {/* Tire-track curves */}
       <svg
         data-ab-track
@@ -76,10 +76,14 @@ export default function AboutSection() {
         <path d="M980 120 C 780 280, 840 500, 640 640 S 380 940, 200 1120" stroke="#d97862" strokeWidth="1" opacity="0.45" />
       </svg>
 
-      <div className="relative mx-auto grid max-w-[1440px] items-start gap-14 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 lg:px-12">
+      <div className="relative mx-auto grid max-w-[1440px] items-start gap-10 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 lg:px-12">
         {/* Image */}
         <div className="relative lg:sticky lg:top-28">
-          <div data-ab-img-wrap className="relative aspect-[4/5] overflow-hidden rounded-[48px] shadow-lift" style={{ clipPath: "inset(12% 12% 12% 12% round 48px)" }}>
+          <div
+            data-ab-img-wrap
+            className="relative aspect-[4/3] overflow-hidden rounded-[32px] shadow-lift sm:aspect-[4/5] lg:aspect-[4/5]"
+            style={{ clipPath: "inset(12% 12% 12% 12% round 32px)" }}
+          >
             <img
               data-ab-img
               src="/images/about.jpg"
@@ -90,16 +94,16 @@ export default function AboutSection() {
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_60%,rgba(47,111,107,0.35)_100%)]" />
           </div>
-          <div className="glass absolute -bottom-5 right-4 rounded-2xl px-5 py-4 shadow-soft sm:right-8 anim-drift">
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted">Service Area</p>
-            <p className="mt-1 text-[15px] font-bold text-ink">DC · MD · Northern Virginia</p>
+          <div className="glass absolute -bottom-4 right-3 rounded-2xl px-4 py-3 shadow-soft sm:-bottom-5 sm:right-6 anim-drift">
+            <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-muted sm:text-[10px]">Service Area</p>
+            <p className="mt-1 text-[13px] font-bold text-ink sm:text-[15px]">DC · MD · Northern Virginia</p>
           </div>
         </div>
 
         {/* Copy */}
         <div data-ab-copy className="lg:pt-8">
           <p data-ab-r className="eyebrow">About Us</p>
-          <h2 data-ab-r className="display mt-5 text-[clamp(2.4rem,5vw,4.6rem)] text-ink">
+          <h2 data-ab-r className="display mt-4 text-[clamp(2rem,5vw,4.6rem)] text-ink sm:mt-5">
             Your Trusted
             <br />
             Mobile Tire &amp;
@@ -107,10 +111,10 @@ export default function AboutSection() {
             <span className="text-teal-700">Roadside Partner</span>
           </h2>
 
-          <div className="mt-8 max-w-[560px] space-y-5 text-[16px] leading-relaxed text-muted">
+          <div className="mt-6 max-w-[560px] space-y-4 text-[15px] leading-relaxed text-muted sm:mt-8 sm:text-[16px]">
             <p data-ab-r>
               At <span className="font-bold text-ink">NS2LLC ROADSIDE ASSISTANCE</span>, we understand that vehicle
-              problems never happen at a convenient time. That’s why we built a mobile service designed around
+              problems never happen at a convenient time. That's why we built a mobile service designed around
               speed, reliability, and convenience.
             </p>
             <p data-ab-r>
@@ -124,20 +128,20 @@ export default function AboutSection() {
             </p>
           </div>
 
-          {/* Vertical value statements with connecting line */}
-          <div data-ab-vals className="relative mt-14 pl-10">
+          {/* Vertical value statements */}
+          <div data-ab-vals className="relative mt-10 pl-8 sm:mt-14 sm:pl-10">
             <span data-ab-conn className="absolute left-[7px] top-3 h-[calc(100%-1.5rem)] w-px bg-gradient-to-b from-teal-400 via-teal-700 to-coral" />
-            <ul className="space-y-10">
+            <ul className="space-y-8 sm:space-y-10">
               {VALUES.map((v) => (
                 <li key={v.n} data-ab-val className="relative">
-                  <span className="absolute -left-10 top-2.5 grid h-4 w-4 place-items-center">
+                  <span className="absolute -left-8 top-2.5 grid h-4 w-4 place-items-center sm:-left-10">
                     <span className="h-2 w-2 rounded-full bg-teal-700 ring-4 ring-sage-50" />
                   </span>
-                  <div className="flex items-baseline gap-4">
-                    <span className="text-[12px] font-bold tracking-[0.3em] text-coral">{v.n}</span>
-                    <h3 className="display text-[clamp(2rem,4vw,3.4rem)] text-ink">{v.label}</h3>
+                  <div className="flex items-baseline gap-3 sm:gap-4">
+                    <span className="text-[11px] font-bold tracking-[0.3em] text-coral sm:text-[12px]">{v.n}</span>
+                    <h3 className="display text-[clamp(1.8rem,4vw,3.4rem)] text-ink">{v.label}</h3>
                   </div>
-                  <p className="mt-2 text-[15px] text-muted">{v.text}</p>
+                  <p className="mt-1.5 text-[14px] text-muted sm:mt-2 sm:text-[15px]">{v.text}</p>
                 </li>
               ))}
             </ul>

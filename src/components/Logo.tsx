@@ -14,9 +14,9 @@ export default function Logo({
 }) {
   const heights = {
     xs: 46,
-    sm: 72,
-    md: 96,
-    lg: 140,
+    sm: 86,
+    md: 118,
+    lg: 160,
   };
 
   const h = heights[size];

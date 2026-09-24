@@ -98,25 +98,27 @@ export default function Header() {
       <header
         ref={headerRef}
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-          scrolled ? "header-scrolled py-1" : "header-default py-2 lg:py-3"
+          scrolled ? "header-scrolled py-1" : "header-default py-2 md:py-3"
         }`}
       >
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-12">
-          {/* Logo — xs on mobile, sm/md on desktop */}
-          <div data-hdr>
-            <span className="lg:hidden">
-              <Logo size="xs" />
-            </span>
-            <span className="hidden lg:inline">
-              <Logo size={scrolled ? "sm" : "md"} />
-            </span>
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-5 md:px-8 lg:px-12">
+          {/* Logo — Desktop and Mobile */}
+          <div data-hdr className="flex items-center">
+            <Logo
+              size={scrolled ? "sm" : "md"}
+              className="hidden md:inline-flex"
+            />
+            <Logo
+              size="xs"
+              className="inline-flex md:hidden"
+            />
           </div>
 
           {/* Desktop nav pill */}
           <nav
             data-hdr
             aria-label="Primary"
-            className="hidden items-center gap-1 rounded-full border border-white/50 bg-white/40 p-1.5 backdrop-blur-md lg:flex"
+            className="hidden items-center gap-1 rounded-full border border-white/50 bg-white/40 p-1.5 backdrop-blur-md md:flex"
           >
             {NAV_LINKS.map((l) => {
               const isActive = active === l.href;
@@ -137,14 +139,14 @@ export default function Header() {
           </nav>
 
           {/* Desktop CTA */}
-          <div data-hdr className="hidden lg:block">
+          <div data-hdr className="hidden md:block">
             <Button href={PHONE_HREF} size={scrolled ? "sm" : "md"} icon={<PhoneIcon className="h-4 w-4" />}>
               {PHONE}
             </Button>
           </div>
 
           {/* Mobile: phone + hamburger */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 md:hidden">
             <a
               href={PHONE_HREF}
               aria-label={`Call ${PHONE}`}
@@ -173,13 +175,18 @@ export default function Header() {
       <div
         ref={overlayRef}
         aria-hidden={!open}
-        className="fixed inset-0 z-[60] flex flex-col bg-ivory px-5 pb-8 pt-24 lg:hidden"
+        className="fixed inset-0 z-[60] flex flex-col bg-ivory px-5 pb-8 pt-5 md:hidden"
         style={{ clipPath: "circle(0% at calc(100% - 46px) 46px)", pointerEvents: "none" }}
       >
         <svg aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 w-full opacity-60" viewBox="0 0 400 400" fill="none" preserveAspectRatio="none">
           <path d="M-20 380 C 80 300, 180 420, 280 300 S 400 160, 440 200" stroke="#6d9d96" strokeWidth="1.5" />
           <path d="M-20 420 C 100 340, 200 460, 300 340 S 420 200, 460 240" stroke="#d97862" strokeWidth="1" opacity="0.6" />
         </svg>
+
+        {/* Mobile menu top bar with Logo */}
+        <div data-m-item className="relative flex items-center justify-between pb-6">
+          <Logo size="xs" onClick={() => setOpen(false)} />
+        </div>
 
         <nav className="relative flex flex-col" aria-label="Mobile">
           {NAV_LINKS.map((l, i) => (
@@ -216,7 +223,7 @@ export default function Header() {
           type="button"
           onClick={() => setOpen(false)}
           aria-label="Close menu"
-          className="fixed right-4 top-4 z-[70] grid h-11 w-11 place-items-center rounded-full bg-teal-700 text-white shadow-teal transition-colors duration-300 hover:bg-coral lg:hidden"
+          className="fixed right-4 top-4 z-[70] grid h-11 w-11 place-items-center rounded-full bg-teal-700 text-white shadow-teal transition-colors duration-300 hover:bg-coral md:hidden"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="18" y1="6" x2="6" y2="18" />

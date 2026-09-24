@@ -5,16 +5,18 @@ import { scrollToTarget } from "@/lib/scroll";
 export default function Logo({
   size = "md",
   className = "",
+  onClick,
 }: {
   size?: "xs" | "sm" | "md" | "lg";
   className?: string;
   stacked?: boolean;
+  onClick?: () => void;
 }) {
   const heights = {
-    xs: 52,
-    sm: 80,
-    md: 110,
-    lg: 160,
+    xs: 46,
+    sm: 72,
+    md: 96,
+    lg: 140,
   };
 
   const h = heights[size];
@@ -24,6 +26,7 @@ export default function Logo({
       href="#home"
       onClick={(e) => {
         e.preventDefault();
+        if (onClick) onClick();
         scrollToTarget(0, 0);
       }}
       aria-label="NS2LLC Roadside Assistance — Home"
@@ -33,7 +36,7 @@ export default function Logo({
         src="/logo.png"
         alt="NS2LLC Roadside Assistance logo"
         height={h}
-        style={{ height: h, width: "auto", display: "block" }}
+        style={{ height: `${h}px`, width: "auto", display: "block" }}
         className="object-contain"
       />
     </a>

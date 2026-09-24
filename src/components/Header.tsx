@@ -97,21 +97,17 @@ export default function Header() {
       {/* ─── Header bar ─── */}
       <header
         ref={headerRef}
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-          scrolled ? "header-scrolled py-1" : "header-default py-2 md:py-3"
-        }`}
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? "header-scrolled py-1" : "header-default py-2 md:py-3"
+          }`}
       >
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-5 md:px-8 lg:px-12">
           {/* Logo — Desktop and Mobile */}
           <div data-hdr className="flex items-center">
             <Logo
-              size={scrolled ? "sm" : "md"}
+              size="md"
               className="hidden md:inline-flex"
             />
-            <Logo
-              size="xs"
-              className="inline-flex md:hidden"
-            />
+
           </div>
 
           {/* Desktop nav pill */}
@@ -127,9 +123,8 @@ export default function Header() {
                   key={l.href}
                   href={l.href}
                   onClick={(e) => { e.preventDefault(); go(l.href); }}
-                  className={`group relative rounded-full px-4 py-2 text-[13px] font-semibold tracking-wide transition-colors duration-300 ${
-                    isActive ? "text-white" : "text-ink hover:text-teal-700"
-                  }`}
+                  className={`group relative rounded-full px-4 py-2 text-[13px] font-semibold tracking-wide transition-colors duration-300 ${isActive ? "text-white" : "text-ink hover:text-teal-700"
+                    }`}
                 >
                   <span className={`absolute inset-0 rounded-full bg-teal-700 transition-all duration-500 ${isActive ? "scale-100 opacity-100" : "scale-75 opacity-0"}`} />
                   <span className="relative">{l.label}</span>
@@ -195,9 +190,8 @@ export default function Header() {
               data-m-item
               href={l.href}
               onClick={(e) => { e.preventDefault(); go(l.href); }}
-              className={`group flex items-center justify-between border-b border-sage-200 py-4 text-[28px] font-extrabold uppercase tracking-tight sm:py-5 sm:text-[34px] ${
-                active === l.href ? "text-teal-700" : "text-ink"
-              }`}
+              className={`group flex items-center justify-between border-b border-sage-200 py-4 text-[28px] font-extrabold uppercase tracking-tight sm:py-5 sm:text-[34px] ${active === l.href ? "text-teal-700" : "text-ink"
+                }`}
             >
               <span className="flex items-baseline gap-3">
                 <span className="text-[11px] font-bold tracking-[0.3em] text-coral">0{i + 1}</span>

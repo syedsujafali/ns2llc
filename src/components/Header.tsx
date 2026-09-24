@@ -105,7 +105,7 @@ export default function Header() {
           <div data-hdr className="flex items-center">
             <Logo
               size="header"
-              className={scrolled ? "scale-90 origin-left transition-transform duration-300" : "transition-transform duration-300"}
+              className={scrolled ? "scale-100 origin-left transition-transform duration-300" : "transition-transform duration-300"}
             />
           </div>
 

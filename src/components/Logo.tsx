@@ -13,8 +13,8 @@ export default function Logo({
   onClick?: () => void;
 }) {
   const sizeClasses: Record<string, string> = {
-    header: "h-11 sm:h-13 md:h-20 lg:h-24",
-    xs: "h-10 sm:h-11",
+    header: "h-14 sm:h-16 md:h-20 lg:h-24",
+    xs: "h-12 sm:h-14",
     sm: "h-14 md:h-16",
     md: "h-18 md:h-24",
     lg: "h-24 md:h-32",
